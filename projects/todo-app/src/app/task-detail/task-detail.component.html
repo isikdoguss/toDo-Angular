@@ -1,0 +1,61 @@
+<div *ngIf="oneTask">
+    
+    <div><span>Task </span>{{oneTask.id}}</div>
+    <!-- <div>
+      <label for="oneTask-desc">Task: </label>
+      <input id="oneTask-desc" [(ngModel)]="oneTask.description" placeholder="Edit Task"/>
+    </div>
+
+    <button class="btn btn-primary" (click)="onEditTask(oneTask.id)">Save</button>  -->
+
+    <div class="shadow">
+        <div class="input-group p-4">
+            <!-- <input type="text" class="form-control" placeholder="Enter task " name="task" [(ngModel)]="addTaskValue">
+            <button class="btn btn-outline-success" type="button" (click)="addTask()">+</button> -->
+            <form #postForm="ngForm" (ngSubmit)="onEditTask(oneTask.id,postForm.value)">
+                <div class="form-group">
+                  <label for="desc">Edit Task</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="desc"
+                    required
+                    ngModel
+                    name="desc"
+                    [placeholder]="oneTask.description"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="media">Media</label>
+                  <textarea
+                    class="form-control"
+                    id="media"
+                    required
+                    ngModel
+                    name="media"
+                  ></textarea>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="completed">Completed?</label>
+                    <input
+                      type="checkbox"
+                      class="form-control form-check-input"
+                      id="completed"
+                      required
+                      ngModel
+                      name="completed"
+                    />
+                  </div> -->
+                <button
+                  class="btn btn-primary mt-2"
+                  type="submit"
+                  
+                >
+                  Save Changes
+                </button>
+              </form>
+          </div>
+    </div>
+
+    <button type="button" (click)="goBack()">go back</button>
+  </div>

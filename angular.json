@@ -27,6 +27,7 @@
               "projects/todo-app/src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "projects/todo-app/src/styles.css"
             ],
             "scripts": []
@@ -94,6 +95,7 @@
               "projects/todo-app/src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "projects/todo-app/src/styles.css"
             ],
             "scripts": []

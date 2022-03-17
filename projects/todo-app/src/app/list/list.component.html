@@ -1,0 +1,88 @@
+
+
+<div class="container-fluid bg-light">
+    <div class="container bg-light">
+
+        <div class="row mt-4" style="height: 500px;">
+            <div class="col"></div>
+            <div class="col-md-6 bg-white shadow">
+
+                <!-- header -->
+                <div class="card bg-warning mt-4">
+                    <h4 class="text-white p-3 pt-2 pb-2">To Do App</h4>
+                </div>
+
+                <!-- form group -->
+                <div class="shadow"> 
+                    <div class="input-group p-4">
+                
+                        <form #postForm="ngForm" (ngSubmit)="onAddTask(postForm.value)">
+                            <div class="form-group">
+                              <label for="desc">New Task</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="desc"
+                                required
+                                ngModel
+                                name="desc"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="media">Media</label>
+                              <textarea
+                                class="form-control"
+                                id="media"
+                                required
+                                ngModel
+                                name="media"
+                              ></textarea>
+                            </div>
+                            <button
+                              class="btn btn-primary mt-2"
+                              type="submit"
+                              [disabled]="!postForm.valid"
+                            >
+                              Add Task
+                            </button>
+                          </form>
+                      </div>
+                </div>
+
+                <h4 class="text-primary mt-4">Tasks : </h4>
+
+                <div style="overflow-y: auto; height: 350px;">
+                    <div class="m-3" *ngFor="let task of loadedTasks">
+                        <div class="p-2 shadow border" id="tasks" >
+                            <div class="input-group row ps-3" >
+
+                                <a class="text-decoration-none" routerLink="/detail/{{task.id}}">
+                                    <span class="card col-md-10 border-0"> {{task.description}} </span>
+                                </a>
+
+                                
+                                <div class="d-flex justify-content-end">
+                                    <input class="d-inline me-2" type="checkbox" [(ngModel)]="task.completed" (change)="onCompleteEdited(task.completed? true : false, task.id)" />
+                                    <button class="btn btn-outline-primary btn-sm me-2" routerLink="/detail/{{task.id}}" >E</button>
+                                    <button class="btn btn-outline-danger btn-sm" (click)="onDeleteTask(task.id)">X</button>
+                                </div>
+
+                                <div>
+                                    <p>{{task.updatedAt}}</p>
+                                    <p>{{task.createdAt}}</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+        
+
+            </div>
+            <div class="col"></div>
+
+        </div>
+
+    </div>
+</div>
