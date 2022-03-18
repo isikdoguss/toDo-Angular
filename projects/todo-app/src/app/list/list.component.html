@@ -1,5 +1,3 @@
-
-
 <div class="container-fluid bg-light">
     <div class="container bg-light">
 
@@ -13,71 +11,69 @@
                 </div>
 
                 <!-- form group -->
-                <div class="shadow"> 
+                <div class="shadow">
                     <div class="input-group p-4">
-                
-                        <form #postForm="ngForm" (ngSubmit)="onAddTask(postForm.value)">
-                            <div class="form-group">
-                              <label for="desc">New Task</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="desc"
-                                required
-                                ngModel
-                                name="desc"
-                              />
+
+                        <form [formGroup]="taskForm" (ngSubmit)="onSubmit(taskForm)"
+                            class="col-sm-12 col-md-8 col-lg-6 mx-auto my-5 p-3 border rounded">
+                            <div class="mb-3">
+                                <label for="taskDescription" class="form-label">Task Description</label>
+                                <input required type="text" class="form-control" id="taskDescription"
+                                    formControlName="description" />
+                                <div style="font-size: 0.8rem" class="alert alert-warning h-75"
+                                    *ngIf="taskForm.controls['description'].invalid">
+                                    Description is required.
+                                </div>
                             </div>
-                            <div class="form-group">
-                              <label for="media">Media</label>
-                              <textarea
-                                class="form-control"
-                                id="media"
-                                required
-                                ngModel
-                                name="media"
-                              ></textarea>
+
+                            <div class="mb-3">
+                                <label for="inputGroupFile02" class="form-label">Task Image</label>
+                                <input type="file" class="form-control" id="inputGroupFile02" formControlName="media"
+                                    #inputMedia accept="image/png, image/jpeg, image/jpg"
+                                    (change)="fileChangeEvent($event)" />
+                                <div style="font-size: 0.8rem" class="alert alert-warning h-75"
+                                    *ngIf="taskForm.controls['media'].invalid">
+                                    Files must be less than 20 KB. Allowed file types: png jpg jpeg
+                                </div>
                             </div>
-                            <button
-                              class="btn btn-primary mt-2"
-                              type="submit"
-                              [disabled]="!postForm.valid"
-                            >
-                              Add Task
-                            </button>
-                          </form>
-                      </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
                 </div>
 
                 <h4 class="text-primary mt-4">Tasks : </h4>
 
                 <div style="overflow-y: auto; height: 350px;">
                     <div class="m-3" *ngFor="let task of loadedTasks">
-                        <div class="p-2 shadow border" id="tasks" >
-                            <div class="input-group row ps-3" >
+                        <div class="p-2 shadow border" id="tasks">
+                            <div class="input-group row ps-3">
 
                                 <a class="text-decoration-none" routerLink="/detail/{{task.id}}">
                                     <span class="card col-md-10 border-0"> {{task.description}} </span>
                                 </a>
+                                <img [src]="task.media" />
 
-                                
+
                                 <div class="d-flex justify-content-end">
-                                    <input class="d-inline me-2" type="checkbox" [(ngModel)]="task.completed" (change)="onCompleteEdited(task.completed? true : false, task.id)" />
-                                    <button class="btn btn-outline-primary btn-sm me-2" routerLink="/detail/{{task.id}}" >E</button>
-                                    <button class="btn btn-outline-danger btn-sm" (click)="onDeleteTask(task.id)">X</button>
+                                    <input class="d-inline me-2" type="checkbox" [(ngModel)]="task.completed"
+                                        (change)="onCompleteEdited(task.completed? true : false, task.id)" />
+                                    <button class="btn btn-outline-primary btn-sm me-2"
+                                        routerLink="/detail/{{task.id}}">E</button>
+                                    <button class="btn btn-outline-danger btn-sm"
+                                        (click)="onDeleteTask(task.id)">X</button>
                                 </div>
 
                                 <div>
-                                    <p>{{task.updatedAt}}</p>
-                                    <p>{{task.createdAt}}</p>
+                                    <p style="font-size: 0.75rem"> Last updated : {{task.updatedAt | date:'short'}}</p>
+                                    <p style="font-size: 0.75rem"> Created: {{task.createdAt | date: 'short'}}</p>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
-                
-        
+
+
 
             </div>
             <div class="col"></div>

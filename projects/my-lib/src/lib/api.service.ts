@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Task } from './task.model';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class ApiService {
     return this.http.get<Task>(this.url+ '/' + id);
   }
 
-  createTask(description: string, media: string) { // id ? verdigim icin eklemek zorunda degilim diye dusunuyorum xd
+  createTask(description: string|undefined, media: string|undefined): Observable<Task> { // id ? verdigim icin eklemek zorunda degilim diye dusunuyorum xd
     const taskData: Task = { 
         createdAt: new Date(),
         description: description,
